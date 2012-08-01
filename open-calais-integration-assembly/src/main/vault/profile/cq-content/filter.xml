@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Defines which repository items are generally included
+-->
+<workspaceFilter version="1.0">    
+    <filter root="/content">
+      <include pattern="/content/open-calais-integration(/.*)?"/>
+      <include pattern="/content/dam/open-calais-integration(/.*)?"/>
+    </filter>
+</workspaceFilter>

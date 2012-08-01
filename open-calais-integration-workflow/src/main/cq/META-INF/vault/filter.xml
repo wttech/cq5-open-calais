@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Defines which repository items are generally included
+-->
+<workspaceFilter version="1.0">
+    <filter root="/libs/foundation">
+      <include pattern="/libs/foundation/global.jsp"/>
+    </filter>
+    <filter root="/libs/wcm/core/components/init">
+      <include pattern="/libs/wcm/core/components/init/init.jsp"/>
+    </filter>
+    <filter root="/apps/sign">
+      <include pattern="/apps/sign/foundation(/.*)?"/>
+      <include pattern="/apps/sign/home(/.*)?"/>
+    </filter>
+    <filter root="/etc/workflow/models">
+		<include root="/etc/workflow/models(/.*)?"/>
+	</filter>
+</workspaceFilter>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Defines which repository items are generally included
+-->
+<workspaceFilter version="1.0">
+    <filter root="/apps">
+      <include pattern="/apps/open-calais-integration(/.*)?"/>
+    </filter>
+    <filter root="/etc/workflow">
+      <include pattern="/etc/workflow/models/opencalais-tagging(/.*)?"/>
+    </filter>
+</workspaceFilter>

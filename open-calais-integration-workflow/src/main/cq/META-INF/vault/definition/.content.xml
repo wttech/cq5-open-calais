@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="vlt:PackageDefinition"
+    sling:resourceType="cq/packaging/components/pack/definition"
+    cqVersion="5.4">
+    <thumbnail/>
+    <thumbnail.png/>
+	 <filter
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="cq/packaging/components/pack/definition/filterlist">
+        <filter
+            jcr:created="{Date}2011-11-10T13:18:57.421+01:00"
+            jcr:createdBy="admin"
+            jcr:lastModified="{Date}2011-11-10T13:19:21.327+01:00"
+            jcr:lastModifiedBy="admin"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="cq/packaging/components/pack/definition/filter"
+            root="/etc/workflow/models"/>
+    </filter>
+</jcr:root>

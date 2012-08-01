@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Defines which repository items are generally included
+-->
+<workspaceFilter version="1.0">
+    <filter root="/apps/sign">
+      <include pattern="/apps/sign/home(/.*)?"/>
+    </filter>
+    <filter root="/apps/sign/install">
+      <include pattern="/apps/sign/install/${project.build.finalName}.jar"/>
+    </filter>
+</workspaceFilter>

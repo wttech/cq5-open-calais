@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.cognifide.calais</groupId>
+	<artifactId>open-calais-integration-parent</artifactId>
+	<version>0.1.0</version>
+
+	<name>Cognifide - open-calais-integration parent</name>	
+	<description>This package provides component and bundle responsible for tagging content using Open Calais.</description>
+	
+	<url>http://cognifide.com/</url>
+	<packaging>pom</packaging>
+
+	<modules>		
+		<module>open-calais-integration-service</module>
+		<module>open-calais-integration-workflow</module>
+		<module>open-calais-integration-assembly</module>
+	</modules>
+
+	<properties>
+		<cq.url>http://localhost:4502</cq.url>		
+		<crx.username>admin</crx.username>
+		<crx.password>admin</crx.password>
+		
+		<assembly.descriptor.file>cq.xml</assembly.descriptor.file>
+		<assembly.path>${project.build.directory}/${project.build.finalName}.zip</assembly.path>
+
+		<crx.package.name>${project.artifactId}</crx.package.name>		
+		<cq.package.name>open-calais-integration-pkg</cq.package.name>
+
+		<maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
+		<!-- workaround for MRESOURCES-99 -->
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<!-- workaround for MNG-2216 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven-cq-plugin.skip>true</maven-cq-plugin.skip>
+	</properties>
+	
+	<repositories>
+		<repository>
+			<id>adobe-public-releases</id>
+			<name>Adobe Basel Public Repository</name>
+			<url>http://repo.adobe.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>adobe-public-releases</id>
+			<name>Adobe Basel Public Repository</name>
+			<url>http://repo.adobe.com/nexus/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>	
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<fork>false</fork>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerVersion>1.6</compilerVersion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- we are skipping all deploy goals
+				(in assembly module we will connect releaseshare upload to this phase)-->
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- skipping the assembly in root pom (but not in children) -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<inherited>false</inherited>
+				<configuration>
+					<skipAssembly>true</skipAssembly>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.cognifide.cq.maven.plugins</groupId>
+				<artifactId>maven-cq-plugin</artifactId>
+				<version>1.0.5</version>
+				<configuration>
+					<skip>${maven-cq-plugin.skip}</skip>
+					<runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+					<packageFileName>${assembly.path}</packageFileName>
+					<packageName>${crxPackage.name}</packageName>
+					<cqUrl>${cq.url}</cqUrl>
+					<user>${crx.username}</user>
+					<password>${crx.password}</password>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.2.1</version>
+					<configuration>
+						<runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+						<descriptors>
+							<descriptor>src/main/assembly/${assembly.descriptor.file}</descriptor>
+						</descriptors>
+					</configuration>
+					<executions>
+						<execution>
+							<id>cq</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.cognifide.cq.maven.plugins</groupId>
+					<artifactId>maven-cq-plugin</artifactId>
+					<version>1.0.4</version>
+					<configuration>
+						<skip>${maven-cq-plugin.skip}</skip>
+						<runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+						<packageFileName>${assembly.path}</packageFileName>
+						<packageName>${crx.package.name}</packageName>
+						<cqUrl>${cq.url}</cqUrl>
+						<user>${crx.username}</user>
+						<password>${crx.password}</password>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>2.1.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<instructions>
+							<!-- <Bundle-Category>Cognifide</Bundle-Category> -->
+							<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+							<Bundle-Name>${project.name}</Bundle-Name>
+							<Bundle-Vendor>Cognifide Ltd.</Bundle-Vendor>
+						</instructions>
+					</configuration>
+				</plugin>
+				<plugin>
+					<!-- scr annotations - for generating component descriptors -->
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-scr-plugin</artifactId>
+					<version>1.7.2</version>
+					<executions>
+						<execution>
+							<id>generate-scr-scrdescriptor</id>
+							<goals>
+								<goal>scr</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

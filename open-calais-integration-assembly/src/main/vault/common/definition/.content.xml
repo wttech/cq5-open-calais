@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="vlt:PackageDefinition" sling:resourceType="cq/packaging/components/pack/definition"
+    providerName="Cognifide" providerUrl="http://www.cognifide.com" providerLink="http://github/cognifide/cq5-open-calais" builtWith="Maven 2.2.1" testedWith="CQ5.5">
+    <thumbnail/>
+    <thumbnail.png/>
+	<screenshots
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="cq/packaging/components/pack/definition/screenshots">
+		<screenshot_3
+            jcr:lastModified="{Date}2011-07-29T14:31:00.500+01:00"
+            jcr:lastModifiedBy="admin"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="cq/packaging/components/pack/definition/screenshot"
+            imageRotate="0">
+            <file/>
+        </screenshot_3>
+		<screenshot_2
+            jcr:lastModified="{Date}2011-07-29T14:31:00.500+01:00"
+            jcr:lastModifiedBy="admin"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="cq/packaging/components/pack/definition/screenshot"
+            imageRotate="0">
+            <file/>
+        </screenshot_2>
+        <screenshot
+            jcr:lastModified="{Date}2011-07-29T14:31:00.500+01:00"
+            jcr:lastModifiedBy="admin"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="cq/packaging/components/pack/definition/screenshot"
+            imageRotate="0">
+            <file/>
+        </screenshot>
+        <screenshot_0
+            jcr:lastModified="{Date}2011-07-29T14:31:00.500+01:00"
+            jcr:lastModifiedBy="admin"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="cq/packaging/components/pack/definition/screenshot"
+            imageRotate="0">
+            <file/>
+        </screenshot_0>
+        <screenshot_1
+            jcr:lastModified="{Date}2011-07-29T14:31:00.500+01:00"
+            jcr:lastModifiedBy="admin"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="cq/packaging/components/pack/definition/screenshot"
+            imageRotate="0">
+            <file/>
+        </screenshot_1>
+    </screenshots>
+</jcr:root>

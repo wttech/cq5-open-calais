@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cognifide.calais</groupId>
+	<artifactId>open-calais-integration-pkg</artifactId>
+	<version>0.1.0</version>
+	
+	<parent>
+		<groupId>com.cognifide.calais</groupId>
+		<artifactId>open-calais-integration-parent</artifactId>
+		<version>0.1.0</version>
+	</parent>
+	<name>cq-open-calais-integration-pkg</name>
+	<description><![CDATA[This package allows users to automatically tag content using OpenCalais.]]></description>
+	<packaging>pom</packaging>
+
+	<properties>
+		<maven-cq-plugin.skip>false</maven-cq-plugin.skip>
+		<sling.install.skip>true</sling.install.skip>
+		<cq.package.name>open-calais-integration-pkg</cq.package.name>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.cognifide.cq.maven.plugins</groupId>
+				<artifactId>maven-cq-plugin</artifactId>
+				<configuration>
+					<runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
+				</configuration>
+			</plugin>
+		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-7</version>
+			</extension>
+		</extensions>
+	</build>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+						<version>1.0-beta-3</version>
+						<configuration>
+							<fromDir>${project.build.directory}/</fromDir>
+							<includes>*.zip</includes>
+							<url>${releaseshare.url}</url>
+							<serverId>cognifide-releaseshare</serverId>
+						</configuration>
+						<executions>
+							<execution>
+								<id>upload-package-to-releaseshare</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>upload</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>	
+	<dependencies>
+	</dependencies>
+</project>
