@@ -129,9 +129,14 @@ public class OpenCalaisService implements CalaisService {
 		return builder.toString();
     }    
 	
-	private Map<String, List<String>> getTags(String content) throws IOException, JSONException {		
-		String response = doCalaisRequest(content);
-		return getTagsFromResponse(response);
+	private Map<String, List<String>> getTags(String content) throws Exception {
+        String response = doCalaisRequest(content);
+        if (response != null) {
+            return getTagsFromResponse(response);
+        }
+        else {
+            throw new Exception("Failed to invoke Calais API, check OSGI service configuration");			
+        }
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -144,11 +149,11 @@ public class OpenCalaisService implements CalaisService {
 	
 		try {
             int returnCode = client.executeMethod(method);
-            if (returnCode == HttpStatus.SC_NOT_IMPLEMENTED) {
-                log("The Post method is not implemented by this URI");
-                return method.getResponseBodyAsString();
-            } else if (returnCode == HttpStatus.SC_OK) {
+            if (returnCode == HttpStatus.SC_OK) {
                 return getResponse(method);
+            }
+            else if (returnCode == HttpStatus.SC_NOT_IMPLEMENTED) {
+                log("The Post method is not implemented by this URI");
             } else {
                 log("Got code: " + returnCode);
                 log("response: " + method.getResponseBodyAsString());
@@ -157,7 +162,7 @@ public class OpenCalaisService implements CalaisService {
             method.releaseConnection();
         }
         
-        return "";
+        return null;
     }	
 	
 	private PostMethod createPostMethod() {
@@ -190,26 +195,26 @@ public class OpenCalaisService implements CalaisService {
 	
 	private Map<String, List<String>> getTagsFromResponse(String response) throws JSONException {
 		Map<String, List<String>> ret = new HashMap<String, List<String>>();		
-
        	JSONObject json = new JSONObject(response);
        	Iterator<String> i = json.keys();
-       	while(i.hasNext()) {
-       		String key = (String)i.next();
-       		if(key != null) {
-       			JSONObject item = (JSONObject)json.get(key);
-       			String typeGroup = item.getString("_typeGroup");        			
-
-       			if(typeGroup != null && typeGroup.equals("entities")) {
-       				String type = item.getString("_type");
-       				String name = item.getString("name");
-       				//Double relevance = item.getDouble("relevance");
-       				//int count = item.getJSONArray("instances").length();
+		while(i.hasNext()) {
+			String key = (String)i.next();
+			if(key != null) {
+				JSONObject item = (JSONObject)json.get(key);
+				if (item.has("_typeGroup")) {
+					String typeGroup = item.getString("_typeGroup");
+					if(typeGroup != null && typeGroup.equals("entities")) {
+						String type = item.getString("_type");
+						String name = item.getString("name");
+						//Double relevance = item.getDouble("relevance");
+						//int count = item.getJSONArray("instances").length();
         				
-       				if(!ret.containsKey(type)) {
-       					ret.put(type, new ArrayList<String>());
-       				}
-       				ret.get(type).add(name);
-        		}
+						if(!ret.containsKey(type)) {
+							ret.put(type, new ArrayList<String>());
+						}
+						ret.get(type).add(name);
+					}
+				}
         	}
        	}
         return ret;
