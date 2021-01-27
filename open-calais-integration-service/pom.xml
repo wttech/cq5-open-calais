@@ -133,7 +133,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Vendor>Cognifide</Bundle-Vendor>
+						<Bundle-Vendor>Wunderman Thompson Technology</Bundle-Vendor>
 						<Export-Package>com.cognifide.calais;version="${project.version}"</Export-Package>
 					</instructions>
 				</configuration>

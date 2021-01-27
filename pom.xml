@@ -142,7 +142,7 @@
 							<!-- <Bundle-Category>Cognifide</Bundle-Category> -->
 							<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 							<Bundle-Name>${project.name}</Bundle-Name>
-							<Bundle-Vendor>Cognifide Ltd.</Bundle-Vendor>
+							<Bundle-Vendor>Wunderman Thompson Technology</Bundle-Vendor>
 						</instructions>
 					</configuration>
 				</plugin>
